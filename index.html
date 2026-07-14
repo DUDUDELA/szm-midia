@@ -9,6 +9,61 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ===== Case Humberto: mockup de celular inteiro, centralizado, com fundo da marca ===== */
+    .case__media {
+      background:
+        radial-gradient(420px 420px at 50% 45%, rgba(233,169,180,0.22), transparent 70%),
+        linear-gradient(160deg, #6E0F1E, #3D0811);
+      display: grid;
+      place-items: center;
+      padding: 40px 24px;
+      min-height: 0;
+    }
+    .case__media img {
+      max-height: 520px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 24px 40px rgba(0,0,0,0.45));
+    }
+    @media (max-width: 760px) {
+      .case__media img { max-height: 420px; }
+    }
+
+    /* ===== Cards de clientes: logo centralizado, segmento embaixo ===== */
+    .client {
+      display: block;
+      background: var(--branco, #fff);
+      border: 1px solid var(--borda, #E8DEDD);
+      border-radius: var(--radius, 14px);
+      padding: 26px 24px 20px;
+      text-align: center;
+    }
+    .client__logo { height: 90px; display: grid; place-items: center; margin-bottom: 14px; }
+    .client__logo img { max-height: 90px; max-width: 80%; object-fit: contain; width: auto; }
+    .client h4 { font-size: 1rem; margin: 0 0 4px; font-weight: 700; }
+    .client p { color: var(--cinza, #6B5F61); font-size: 0.87rem; margin: 0; }
+    .client__mark {
+      font-family: "Anton", sans-serif;
+      background: var(--vinho, #6E0F1E);
+      color: #fff;
+      width: 64px; height: 64px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+    }
+  </style>
+  <script>
+    /* Se um logo não carregar, mostra as iniciais no quadrado bordô */
+    function logoFallback(el, iniciais) {
+      var span = document.createElement("span");
+      span.className = "client__mark";
+      span.textContent = iniciais;
+      el.replaceWith(span);
+    }
+  </script>
 </head>
 <body>
 
@@ -325,12 +380,12 @@
         <p class="section__sub">Construímos projetos em parceria com empresas de diferentes segmentos, conectando estratégia, criatividade, presença digital e resultados comerciais.</p>
       </div>
       <div class="clients-grid">
-        <div class="client reveal"><img src="img/atacadao.png" alt="Atacadão Ramalho" /><h4>Atacadão Ramalho</h4><p>Móveis e eletrodomésticos</p></div>
-        <div class="client reveal"><img src="img/lupo.png" alt="Lupo Franquia" /><h4>Lupo Franquia</h4><p>Moda e vestuário</p></div>
-        <div class="client reveal"><img src="img/case-humberto.png" alt="Humberto Filho" /><h4>Humberto Filho</h4><p>Arquitetura e interiores</p></div>
-        <div class="client reveal"><img src="img/paquente.png" alt="Pé Quente Modas e Sports" /><h4>Pé Quente Modas e Sports</h4><p>Moda íntima e básicos</p></div>
-        <div class="client reveal"><img src="img/torkar.png" alt="Torkar" /><h4>Torkar</h4><p>Mecânica especializada</p></div>
-        <div class="client reveal"><img src="img/pattisserie.png" alt="Pâtisserie" /><h4>Pâtisserie</h4><p>Confeitaria artesanal</p></div>
+        <div class="client reveal"><div class="client__logo"><img src="img/atacadao.png" alt="Atacadão Ramalho" onerror="logoFallback(this,'AR')" /></div><h4>Atacadão Ramalho</h4><p>Móveis e eletrodomésticos</p></div>
+        <div class="client reveal"><div class="client__logo"><img src="img/lupo.png" alt="Lupo Franquia" onerror="logoFallback(this,'LP')" /></div><h4>Lupo Franquia</h4><p>Moda e vestuário</p></div>
+        <div class="client reveal"><div class="client__logo"><img src="img/case-humberto.png" alt="Humberto Filho" onerror="logoFallback(this,'HF')" /></div><h4>Humberto Filho</h4><p>Arquitetura e interiores</p></div>
+        <div class="client reveal"><div class="client__logo"><img src="img/paquente.png" alt="Pé Quente Modas e Sports" onerror="logoFallback(this,'PQ')" /></div><h4>Pé Quente Modas e Sports</h4><p>Moda íntima e básicos</p></div>
+        <div class="client reveal"><div class="client__logo"><img src="img/torkar.png" alt="Torkar" onerror="logoFallback(this,'TK')" /></div><h4>Torkar</h4><p>Mecânica especializada</p></div>
+        <div class="client reveal"><div class="client__logo"><img src="img/pattisserie.png" alt="Pâtisserie" onerror="logoFallback(this,'PT')" /></div><h4>Pâtisserie</h4><p>Confeitaria artesanal</p></div>
       </div>
 
       <!-- Case em destaque -->
@@ -401,15 +456,15 @@
       <div class="quotes">
         <blockquote class="reveal">
           <p>"A SZM Mídia transformou completamente a presença digital da nossa empresa. Com o Método PIV®, conseguimos posicionar nossa marca, atrair mais clientes e aumentar significativamente nossos resultados."</p>
-          <footer><span class="avatar">N</span>Naisson Santana · Cliente SZM Mídia</footer>
+          <footer><span class="avatar">N</span>Naisson Santana · Atacadão Ramalho</footer>
         </blockquote>
         <blockquote class="reveal">
           <p>"O atendimento é excelente e o planejamento faz toda a diferença. A equipe entende o negócio, cria estratégias eficientes e entrega um trabalho profissional do início ao fim."</p>
-          <footer><span class="avatar">D</span>Danilo Pé Quente · Cliente SZM Mídia</footer>
+          <footer><span class="avatar">D</span>Danilo  · Grupo Pé Quente</footer>
         </blockquote>
         <blockquote class="reveal">
           <p>"Depois que começamos a trabalhar com a SZM Mídia, nossa empresa ganhou mais visibilidade e credibilidade. O Método PIV® realmente gera impacto e traz resultados."</p>
-          <footer><span class="avatar">E</span>Efraim Espetinho · Cliente SZM Mídia</footer>
+          <footer><span class="avatar">E</span>Efraim  · Real Espetinho</footer>
         </blockquote>
       </div>
     </div>
