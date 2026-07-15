@@ -54,6 +54,66 @@
       place-items: center;
       font-size: 1.3rem;
     }
+
+    /* ===== Animação de luz atrás do vidro (seções escuras) ===== */
+    .section--dark, .manifesto, .addon, .case {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section--dark::before, .manifesto::before, .addon::before, .case::before,
+    .section--dark::after,  .manifesto::after,  .addon::after,  .case::after {
+      content: "";
+      position: absolute;
+      width: 520px; height: 520px;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.45;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .section--dark::before, .manifesto::before, .addon::before, .case::before {
+      background: radial-gradient(circle, #C2405A 0%, transparent 70%);
+      top: -140px; left: -120px;
+      animation: flutua1 18s ease-in-out infinite alternate;
+    }
+    .section--dark::after, .manifesto::after, .addon::after, .case::after {
+      background: radial-gradient(circle, #E9A9B4 0%, transparent 70%);
+      bottom: -160px; right: -100px;
+      opacity: 0.28;
+      animation: flutua2 24s ease-in-out infinite alternate;
+    }
+
+    @keyframes flutua1 {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(46vw, 240px) scale(1.25); }
+    }
+    @keyframes flutua2 {
+      from { transform: translate(0, 0) scale(1.15); }
+      to   { transform: translate(-44vw, -220px) scale(0.9); }
+    }
+
+    /* conteúdo sempre por cima da luz */
+    .section--dark .container, .manifesto .container,
+    .addon > *, .case > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* o "vidro": os cards deixam a luz passar borrada por trás */
+    .piv-card, .addon__how {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* acessibilidade: sem animação para quem prefere menos movimento */
+    @media (prefers-reduced-motion: reduce) {
+      .section--dark::before, .manifesto::before, .addon::before, .case::before,
+      .section--dark::after,  .manifesto::after,  .addon::after,  .case::after {
+        animation: none;
+      }
+    }
   </style>
   <script>
     /* Se um logo não carregar, mostra as iniciais no quadrado bordô */
@@ -445,7 +505,7 @@
           <div class="member__photo"><img src="img/tales.png" alt="Thales Marques" onerror="imgFallback(this,'avatar','FC')" /></div>
           <h4>Thales Marques</h4>
           <p class="member__role">Diretor de Produção Audiovisual e Conteúdo</p>
-          <p>Transforma conceitos em narrativas visuais de alto impacto, unindo captação estratégica, edição cinematográfica e criatividade para produzir conteúdos que prendem a atenção, valorizam marcas e geram resultados..</p>
+          <p>Transforma ideias em vídeos dinâmicos e estratégicos, captando imagens que geram conexão, impacto e fortalecem a presença das marcas.</p>
         </article>
       </div>
       <p class="team-note reveal">Cada projeto é conduzido por profissionais com responsabilidades específicas e um único objetivo: uma presença de marca mais forte e preparada para gerar oportunidades.</p>
