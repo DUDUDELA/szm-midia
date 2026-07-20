@@ -169,6 +169,27 @@
       span.textContent = iniciais;
       el.replaceWith(span);
     }
+
+    /* Troca o logo do card Pé Quente entre Sports e Modas */
+    var pequenteItens = [
+      { src: "img/paquente.png",  alt: "Péquente Sports", nome: "Péquente Sports", seg: "Moda esportiva e artigos fitness" },
+      { src: "img/paquente2.png", alt: "Péquente Modas",  nome: "Péquente Modas",  seg: "Moda íntima e lingerie" }
+    ];
+    var pequenteIdx = 0;
+    function pequenteSwitch() {
+      pequenteIdx = (pequenteIdx + 1) % pequenteItens.length;
+      var item = pequenteItens[pequenteIdx];
+      var card = document.getElementById("clientPequente");
+      if (!card) return;
+      var img = card.querySelector(".client__logo img");
+      if (img) { img.src = item.src; img.alt = item.alt; }
+      var nome = document.getElementById("pequenteName");
+      var seg = document.getElementById("pequenteSeg");
+      if (nome) nome.textContent = item.nome;
+      if (seg) seg.textContent = item.seg;
+      var dots = card.querySelectorAll(".client__dots i");
+      dots.forEach(function (d, i) { d.classList.toggle("is-active", i === pequenteIdx); });
+    }
   </script>
 </head>
 <body>
@@ -491,7 +512,15 @@
         <div class="client reveal"><div class="client__logo"><img src="img/atacadao.png" alt="Atacadão Ramalho" onerror="logoFallback(this,'AR')" /></div><h4>Atacadão Ramalho</h4><p>Móveis e eletrodomésticos</p></div>
         <div class="client reveal"><div class="client__logo"><img src="img/lupo.png" alt="Lupo Franquia" onerror="logoFallback(this,'LP')" /></div><h4>Lupo Franquia</h4><p>Moda e vestuário</p></div>
         <div class="client reveal"><div class="client__logo"><img src="img/case-humberto.png" alt="Humberto Filho" onerror="logoFallback(this,'HF')" /></div><h4>Humberto Filho</h4><p>Arquitetura e interiores</p></div>
-        <div class="client reveal"><div class="client__logo"><img src="img/paquente.png" alt="Pé Quente Modas e Sports" onerror="logoFallback(this,'PQ')" /></div><h4>Pé Quente Modas e Sports</h4><p>Moda íntima e básicos</p></div>
+        <div class="client client--switch reveal" id="clientPequente">
+          <div class="client__logo client__logo--switch">
+            <img src="img/paquente.png" alt="Péquente Sports" onerror="logoFallback(this,'PQ')" />
+            <button type="button" class="client__nav" aria-label="Trocar logo do Pé Quente" onclick="pequenteSwitch()">&rsaquo;</button>
+          </div>
+          <h4 id="pequenteName">Péquente Sports</h4>
+          <p id="pequenteSeg">Moda esportiva e artigos fitness</p>
+          <span class="client__dots"><i class="is-active"></i><i></i></span>
+        </div>
         <div class="client reveal"><div class="client__logo"><img src="img/torkar.png" alt="Torkar" onerror="logoFallback(this,'TK')" /></div><h4>Torkar</h4><p>Mecânica especializada</p></div>
         <div class="client reveal"><div class="client__logo"><img src="img/pattisserie.png" alt="Pâtisserie" onerror="logoFallback(this,'PT')" /></div><h4>Pâtisserie</h4><p>Confeitaria artesanal</p></div>
         <div class="client reveal"><div class="client__logo"><img src="img/lanamed.png" alt="LanaMed" onerror="logoFallback(this,'LM')" /></div><h4>LanaMed</h4><p>Indústria farmacêutica e saúde</p></div>
@@ -535,7 +564,7 @@
       </div>
       <div class="team-grid">
         <article class="member reveal">
-          <div class="member__photo"><img src="img/regisousa.png" alt="Regi Souza" onerror="imgFallback(this,'avatar','RS')" /></div>
+          <div class="member__photo"><img src="img/regisousa.png" alt="Regi Souza - TRS" onerror="imgFallback(this,'avatar','RS')" /></div>
           <h4>Regi Souza</h4>
           <p class="member__role">Diretor Estratégico e de Gestão</p>
           <p>À frente da SZM Mídia e da TRS, conduz a estratégia e a gestão de cada operação, transformando planejamento em resultado comercial concreto para as marcas atendidas.</p>
