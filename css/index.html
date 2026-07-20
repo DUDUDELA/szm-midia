@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SZM Mídia · Agência de Marketing Digital · Método PIV®</title>
+  <meta name="description" content="Posicionamos sua marca, impactamos seu público e vendemos resultados com o exclusivo Método PIV®. Gestão de redes sociais, tráfego pago, branding e design em Vitória da Conquista, BA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ===== Hero em duas colunas: texto à esquerda, painel à direita ===== */
+    .hero__inner {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .hero__title { font-size: clamp(2.6rem, 5.5vw, 4.6rem); }
+    .hero__media {
+      margin-top: 0;
+      max-width: none;
+      transform: rotate(1.5deg);
+    }
+    .hero__proofs { grid-column: 1 / -1; }
+
+    @media (max-width: 900px) {
+      .hero__inner { grid-template-columns: 1fr; gap: 36px; }
+      .hero__media { transform: none; }
+      .hero__title { font-size: clamp(2.6rem, 10vw, 4rem); }
+    }
+    /* ===== Case Humberto: mockup de celular inteiro, centralizado, com fundo da marca ===== */
+    .case__media {
+      background:
+        radial-gradient(420px 420px at 50% 45%, rgba(233,169,180,0.22), transparent 70%),
+        linear-gradient(160deg, var(--vinho), var(--vinho-profundo));
+      display: grid;
+      place-items: center;
+      padding: 40px 24px;
+      min-height: 0;
+    }
+    .case__media img {
+      max-height: 520px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 24px 40px rgba(0,0,0,0.45));
+    }
+    @media (max-width: 760px) {
+      .case__media img { max-height: 420px; }
+    }
+
+    /* ===== Cards de clientes: logo centralizado, segmento embaixo ===== */
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .client {
+      display: block;
+      background: var(--branco, #fff);
+      border: 1px solid var(--borda, #E8DEDD);
+      border-radius: var(--radius, 14px);
+      padding: 26px 24px 20px;
+      text-align: center;
+    }
+    .client__logo { height: 90px; display: grid; place-items: center; margin-bottom: 14px; }
+    .client__logo img {
+      max-height: 90px;
+      max-width: 80%;
+      object-fit: contain;
+      width: auto;
+      filter: grayscale(100%);
+      opacity: 0.85;
+      transition: filter 0.3s ease, opacity 0.3s ease;
+    }
+    .client:hover .client__logo img { filter: grayscale(0); opacity: 1; }
+    .client h4 { font-size: 1rem; margin: 0 0 4px; font-weight: 700; }
+    .client p { color: var(--cinza, #6B5F61); font-size: 0.87rem; margin: 0; }
+    .client__mark {
+      font-family: "Anton", sans-serif;
+      background: var(--vinho, #6E0F1E);
+      color: #fff;
+      width: 64px; height: 64px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+    }
+
+    @media (max-width: 900px) { .clients-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .clients-grid { grid-template-columns: 1fr; } }
+
+    /* ===== Time ===== */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ===== Animação de luz atrás do vidro (seções escuras) ===== */
+    .section--dark, .manifesto, .addon, .case {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section--dark::before, .manifesto::before, .addon::before, .case::before,
+    .section--dark::after,  .manifesto::after,  .addon::after,  .case::after {
+      content: "";
+      position: absolute;
+      width: 520px; height: 520px;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .section--dark::before, .manifesto::before, .addon::before, .case::before {
+      background: radial-gradient(circle, var(--vinho-claro) 0%, transparent 70%);
+      top: -140px; left: -120px;
+      animation: flutua1 8s ease-in-out infinite alternate;
+    }
+    .section--dark::after, .manifesto::after, .addon::after, .case::after {
+      background: radial-gradient(circle, var(--rose) 0%, transparent 70%);
+      bottom: -160px; right: -100px;
+      opacity: 0.67;
+      animation: flutua2 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes flutua1 {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(46vw, 240px) scale(1.25); }
+    }
+    @keyframes flutua2 {
+      from { transform: translate(0, 0) scale(1.15); }
+      to   { transform: translate(-44vw, -220px) scale(0.9); }
+    }
+
+    /* conteúdo sempre por cima da luz */
+    .section--dark .container, .manifesto .container,
+    .addon > *, .case > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* o "vidro": os cards deixam a luz passar borrada por trás */
+    .piv-card, .addon__how {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* acessibilidade: sem animação para quem prefere menos movimento */
+    @media (prefers-reduced-motion: reduce) {
+      .section--dark::before, .manifesto::before, .addon::before, .case::before,
+      .section--dark::after,  .manifesto::after,  .addon::after,  .case::after {
+        animation: none;
+      }
+    }
+  </style>
+  <script>
+    /* Se um logo não carregar, mostra as iniciais no quadrado bordô */
+    function logoFallback(el, iniciais) {
+      var span = document.createElement("span");
+      span.className = "client__mark";
+      span.textContent = iniciais;
+      el.replaceWith(span);
+    }
+
+    /* Troca o logo do card Pé Quente entre Sports e Modas */
+    var pequenteItens = [
+      { src: "img/paquente.png",  alt: "Péquente Sports", nome: "Péquente Sports", seg: "Moda esportiva e artigos fitness" },
+      { src: "img/paquente2.png", alt: "Péquente Modas",  nome: "Péquente Modas",  seg: "Moda íntima e lingerie" }
+    ];
+    var pequenteIdx = 0;
+    function pequenteSwitch() {
+      pequenteIdx = (pequenteIdx + 1) % pequenteItens.length;
+      var item = pequenteItens[pequenteIdx];
+      var card = document.getElementById("clientPequente");
+      if (!card) return;
+      var img = card.querySelector(".client__logo img");
+      if (img) { img.src = item.src; img.alt = item.alt; }
+      var nome = document.getElementById("pequenteName");
+      var seg = document.getElementById("pequenteSeg");
+      if (nome) nome.textContent = item.nome;
+      if (seg) seg.textContent = item.seg;
+      var dots = card.querySelectorAll(".client__dots i");
+      dots.forEach(function (d, i) { d.classList.toggle("is-active", i === pequenteIdx); });
+    }
+  </script>
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="topo">
+    <div class="nav__inner">
+      <a href="#inicio" class="nav__logo">
+        <img src="img/szm-logo.png" alt="SZM Mídia" class="nav__logo-img"
+             data-remote="https://szmmidia-com-br.lovable.app/__l5e/assets-v1/bdfcc08a-516c-4b10-b05a-dc14441704e6/szm-logo.png"
+             onerror="imgFallback(this,'text','SZMMÍDIA')" />
+      </a>
+      <nav class="nav__links" id="navLinks">
+        <a href="#inicio">Início</a>
+        <a href="#quem-somos">Quem Somos</a>
+        <a href="#metodo-piv">Método PIV®</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#planos">Planos</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#time">Time</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <a href="#contato" class="btn btn--solid nav__cta">Solicitar Diagnóstico</a>
+      <button class="nav__burger" id="navBurger" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="inicio">
+    <div class="hero__inner">
+      <div class="hero__text">
+        <p class="eyebrow">✦ Método PIV® Exclusivo · Vitória da Conquista, BA</p>
+        <h1 class="hero__title">
+          <span class="hero__word" data-step="P">Posicionar<em>.</em></span>
+          <span class="hero__word" data-step="I">Impactar<em>.</em></span>
+          <span class="hero__word hero__word--fill" data-step="V">Vender<em>.</em></span>
+        </h1>
+        <p class="hero__lead">
+          Você cuida do seu negócio. A gente cuida de fazer ele ser
+          <strong>visto, lembrado e procurado</strong>, do primeiro post à venda.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="#contato">Solicitar Diagnóstico Gratuito</a>
+          <a class="btn btn--ghost" href="https://wa.me/557798084101?text=Ol%C3%A1!%20Quero%20falar%20com%20a%20SZM%20M%C3%ADdia." target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </div>
+      </div>
+      <div class="hero__media">
+        <img src="img/hero-szm.jpg" alt="Painéis 3D com gráficos de crescimento e métricas de marketing digital"
+             data-remote="https://szmmidia-com-br.lovable.app/assets/hero-szm-B70OTLDh.jpg"
+             onerror="imgFallback(this,'card','PIV')" />
+      </div>
+      <ul class="hero__proofs">
+        <li><strong>Método próprio</strong><span>Um passo a passo testado, sem achismo.</span></li>
+        <li><strong>Atendimento próximo</strong><span>Você fala com gente, não com robô.</span></li>
+        <li><strong>Foco em venda</strong><span>Curtida não paga boleto. Cliente sim.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ QUEM SOMOS ============ -->
+  <section class="section" id="quem-somos">
+    <div class="container split">
+      <div class="split__media reveal">
+        <div class="photo-frame">
+          <img src="img/szm-ceo.jpg" alt="Fundador da SZM Mídia"
+               data-remote="https://szmmidia-com-br.lovable.app/__l5e/assets-v1/ae8b2d23-76b7-4675-9b75-30bbaf74468a/szm-ceo.jpg"
+               onerror="imgFallback(this,'card','SZM')" />
+        </div>
+        <div class="photo-frame__tag">100% foco em resultados</div>
+      </div>
+      <div class="split__text reveal">
+        <p class="eyebrow">Quem Somos</p>
+        <h2>Marketing feito por gente que entende o seu negócio.</h2>
+        <p>A SZM Mídia nasceu em Vitória da Conquista com um objetivo simples: fazer o marketing que realmente traz cliente para dentro do seu negócio.</p>
+        <p>Não fazemos apenas posts bonitos: sentamos com você, entendemos a realidade do seu negócio e construímos uma estratégia feita para gerar resultado. Enquanto você mantém o foco no que sabe fazer melhor, nossa equipe cuida de perto da sua presença digital para posicionar sua marca, atrair o público certo e transformar atenção em novas oportunidades de venda.</p>
+        <ul class="checklist">
+          <li>Atendimento de perto</li>
+          <li>Conteúdo que vende</li>
+          <li>Você sem dor de cabeça</li>
+          <li>Resultado que dá pra ver</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MÉTODO PIV ============ -->
+  <section class="section section--dark" id="metodo-piv">
+    <div class="container">
+      <div class="section__head reveal">
+        <p class="eyebrow eyebrow--light">Metodologia exclusiva</p>
+        <h2>Método PIV®</h2>
+        <p class="section__sub">Não é sorte, nem post solto que viraliza. É um caminho com ordem: primeiro a gente posiciona, depois faz as pessoas verem, e só então transforma isso em venda. Cada passo prepara o próximo.</p>
+      </div>
+      <div class="piv-grid">
+        <article class="piv-card reveal">
+          <span class="piv-card__letter">P</span>
+          <h3>Posicionar</h3>
+          <p>Antes de gastar o primeiro real em anúncio, a gente organiza a base. Definimos como sua marca aparece, com quem ela fala e o motivo real pelo qual o cliente escolhe você, e não o concorrente da esquina. É aqui que seu negócio deixa de ser "mais um" e ganha identidade.</p>
+          <p class="piv-card__gain"><strong>O que você ganha:</strong> uma marca clara e coerente, que o cliente reconhece de longe e confia antes mesmo de entrar em contato.</p>
+        </article>
+        <article class="piv-card reveal">
+          <span class="piv-card__letter">I</span>
+          <h3>Impactar</h3>
+          <p>Com a base pronta, colocamos você na frente das pessoas certas. Fotos, vídeos e anúncios com padrão profissional, entregues para quem realmente pode comprar de você na sua região, com constância, dia após dia, não só quando dá vontade de postar.</p>
+          <p class="piv-card__gain"><strong>O que você ganha:</strong> presença constante e uma região inteira lembrando do seu negócio na hora de decidir.</p>
+        </article>
+        <article class="piv-card reveal">
+          <span class="piv-card__letter">V</span>
+          <h3>Vender</h3>
+          <p>Atenção só vale quando vira caixa. Curtida não paga boleto: por isso todo o trabalho aponta para a ação, contato no WhatsApp, cliente na porta e venda fechada. E acompanhamos os números para saber, de verdade, o que está trazendo retorno.</p>
+          <p class="piv-card__gain"><strong>O que você ganha:</strong> telefone tocando, WhatsApp movimentado e vendas que aparecem no faturamento, não só nas redes.</p>
+        </article>
+      </div>
+      <p class="piv-note reveal">Um processo contínuo: cada ciclo alimenta o próximo com dados e aprendizado, e o resultado só melhora com o tempo.</p>
+    </div>
+  </section>
+
+  <!-- ============ O QUE FAZEMOS ============ -->
+  <section class="section" id="servicos">
+    <div class="container">
+      <div class="section__head reveal">
+        <p class="eyebrow">O que fazemos</p>
+        <h2>A gente cuida do seu Instagram e de tudo mais que sua marca precisa</h2>
+        <p class="section__sub">Da ideia ao cliente na porta: cuidamos do seu Instagram, do anúncio e da imagem do seu negócio para você não se preocupar com nada disso.</p>
+      </div>
+      <div class="services-grid">
+        <article class="service-card service-card--featured reveal">
+          <span class="badge">Serviço mais solicitado</span>
+          <h3>Gestão de Redes Sociais</h3>
+          <p>Cuidamos do seu Instagram e TikTok do início ao fim: planejamos, criamos, publicamos e mostramos o que está funcionando.</p>
+          <ul>
+            <li>A gente planeja o mês todo pra você</li>
+            <li>Cria post, Reels e stories no seu jeito</li>
+            <li>Publica na hora certa, todo dia</li>
+            <li>Relatório simples do que funcionou</li>
+          </ul>
+        </article>
+        <article class="service-card reveal">
+          <h3>Tráfego Pago</h3>
+          <p>Anúncios no Instagram, Facebook e Google: sua marca aparece para quem tem chance de comprar de você, na sua cidade.</p>
+          <p class="service-card__ideal">Ideal para quem posta bastante mas ninguém liga nem aparece.</p>
+        </article>
+        <article class="service-card reveal">
+          <h3>Design Gráfico</h3>
+          <p>Posts, banners, cardápio, folder, adesivo e tudo que sua marca precisa para ficar bonita e profissional.</p>
+          <p class="service-card__ideal">Ideal para quem quer parar de fazer arte no celular às pressas.</p>
+        </article>
+        <article class="service-card reveal">
+          <h3>Branding</h3>
+          <p>Construção de marca: definimos o jeito, a cara e a voz do seu negócio para ele ser lembrado.</p>
+          <p class="service-card__ideal">Ideal para quem quer que a marca deixe de ser "mais uma" na cidade.</p>
+        </article>
+        <article class="service-card reveal">
+          <h3>Produção de Conteúdo</h3>
+          <p>A gente vai até você, grava Reels, vídeos e fotos do seu negócio e transforma em conteúdo pronto para postar.</p>
+          <p class="service-card__ideal">Ideal para quem não sabe o que postar nem tem tempo de gravar.</p>
+        </article>
+        <article class="service-card reveal">
+          <h3>Consultoria em Marketing</h3>
+          <p>Uma conversa com quem entende, para você saber onde investir, o que cortar e por onde começar.</p>
+          <p class="service-card__ideal">Ideal para quem já tenta faz tempo e sente que anda em círculos.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMO FUNCIONA (6 ETAPAS) ============ -->
+  <section class="section section--tint" id="como-funciona">
+    <div class="container">
+      <div class="section__head reveal">
+        <p class="eyebrow">Como funciona</p>
+        <h2>Onboarding estruturado, do diagnóstico à evolução</h2>
+        <p class="section__sub">Você não recebe postagens aleatórias: é conduzido por um processo com começo, meio e evolução.</p>
+      </div>
+      <ol class="steps">
+        <li class="reveal"><strong>Reunião e diagnóstico</strong><span>Entendimento do negócio, dos canais e dos desafios atuais.</span></li>
+        <li class="reveal"><strong>Estratégia e objetivos</strong><span>Definição de metas, público, mensagem e canais prioritários.</span></li>
+        <li class="reveal"><strong>Calendário editorial</strong><span>Pilares de conteúdo e pauta conectados à estratégia.</span></li>
+        <li class="reveal"><strong>Produção e aprovação</strong><span>Criação profissional com fluxo simples de aprovação.</span></li>
+        <li class="reveal"><strong>Publicação</strong><span>Conteúdo no ar com consistência e padrão de marca.</span></li>
+        <li class="reveal"><strong>Métricas e ajustes</strong><span>Relatórios, reuniões de alinhamento e evolução contínua.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ PLANOS ============ -->
+  <section class="section" id="planos">
+    <div class="container">
+      <div class="section__head reveal">
+        <p class="eyebrow">Formas de contratação</p>
+        <h2>Um portfólio, 4 formas de contratar</h2>
+        <p class="section__sub">Do serviço avulso ao plano completo: você entra no nível que faz sentido hoje e evolui quando quiser.</p>
+      </div>
+
+      <div class="tiers reveal">
+        <div class="tier"><h4>Pacotes Individuais</h4><p>Serviço avulso, sem mensalidade. Ideal para testar ou resolver uma demanda pontual.</p></div>
+        <div class="tier"><h4>Planos Mix</h4><p>Assinatura mensal de conteúdo completo, no nível certo para o seu momento.</p></div>
+        <div class="tier"><h4>Personalizado</h4><p>Combinação sob medida quando os formatos padrão não encaixam no seu momento.</p></div>
+        <div class="tier"><h4>SZM 360°</h4><p>Tudo incluso: conteúdo, presença física, estratégia contínua e tráfego pago.</p></div>
+      </div>
+      <p class="transparency reveal">Todo formato indica se é pontual ou recorrente, sem surpresa no contrato.</p>
+
+      <!-- Conteúdo Estático -->
+      <div class="plan-group reveal">
+        <h3>Pacotes Individuais · Conteúdo Estático</h3>
+        <p class="plan-group__sub">Posts para feed, carrosséis e stories com copy pronta para publicar. Arte, legenda e hashtags inclusas.</p>
+        <div class="plan-row">
+          <article class="plan"><span class="tag tag--pontual">Pontual</span><h4>Essencial</h4><p>10 posts (feed ou carrossel) com copy profissional. Presença organizada para quem está começando.</p><p class="plan__meta">Entrega em 5 dias úteis</p></article>
+          <article class="plan"><span class="tag tag--pontual">Pontual</span><h4>Ampliado</h4><p>20 posts com copy otimizada e maior variedade de formatos. Frequência e consistência para crescer.</p><p class="plan__meta">Entrega em 7 dias úteis</p></article>
+          <article class="plan"><span class="tag tag--pontual">Pontual</span><h4>Completo</h4><p>30 posts com copy e calendário editorial do mês: volume, planejamento e visão estratégica integrados.</p><p class="plan__meta">Entrega em 10 dias úteis</p></article>
+        </div>
+      </div>
+
+      <!-- Conteúdo em Vídeo -->
+      <div class="plan-group reveal">
+        <h3>Pacotes Individuais · Conteúdo em Vídeo</h3>
+        <p class="plan-group__sub">Sessão de captação profissional no seu negócio, mais roteiro, direção e edição de Reels e Stories.</p>
+        <div class="plan-row">
+          <article class="plan"><span class="tag tag--mensal">Mensal</span><h4>Essencial</h4><p>6 Reels com copy, roteiro e calendário · 1 visita de captação.</p><p class="plan__meta">Entrega em até 5 dias após a gravação</p></article>
+          <article class="plan plan--highlight"><span class="tag tag--best">Mais escolhido</span><span class="tag tag--mensal">Mensal</span><h4>Ampliado</h4><p>10 Reels + 4 stories com planejamento estratégico e calendário · 4 visitas de captação.</p><p class="plan__meta">Entrega em 48h após cada gravação</p></article>
+          <article class="plan"><span class="tag tag--mensal">Mensal</span><h4>Completo</h4><p>14 Reels + 8 stories, planejamento estratégico, métricas de crescimento e reuniões quinzenais · 4 visitas.</p><p class="plan__meta">Entrega em 48h após cada gravação</p></article>
+        </div>
+        <p class="plan-group__note">A evolução entre os níveis está na frequência, no planejamento, na direção e no acompanhamento, não apenas na quantidade.</p>
+      </div>
+
+      <!-- Planejamento Estratégico -->
+      <div class="plan-group reveal">
+        <h3>Pacotes Individuais · Planejamento Estratégico</h3>
+        <p class="plan-group__sub">Conteúdo sem planejamento ocupa espaço. Conteúdo com estratégia constrói posicionamento.</p>
+        <div class="plan-row">
+          <article class="plan"><span class="tag tag--pontual">Pontual</span><h4>Plano Mensal</h4><p>Diagnóstico mais plano de ação de 30 dias: calendário, pauta e diretrizes de copy para executar com clareza.</p></article>
+          <article class="plan"><span class="tag tag--pontual">Pontual</span><h4>Plano Trimestral</h4><p>Diagnóstico mais plano de ação quinzenal com calendário, roteiros, copy e benchmark de concorrentes.</p></article>
+          <article class="plan"><span class="tag tag--mensal">Mensal</span><h4>Consultoria Contínua</h4><p>Reunião mensal de estratégia, plano vivo, relatório de métricas e ajustes contínuos ao longo do ano.</p></article>
+        </div>
+        <p class="plan-group__note">Aqui a SZM Mídia atua como consultoria: o serviço que conecta cada ação ao resultado que o negócio precisa.</p>
+      </div>
+
+      <!-- Promotoras -->
+      <div class="plan-group reveal">
+        <h3>Pacotes Individuais · Promotoras &amp; Ações Presenciais</h3>
+        <p class="plan-group__sub">Presença física da marca: eventos, inaugurações, panfletagem, ativações e ponto de venda.</p>
+        <div class="plan-row">
+          <article class="plan"><span class="tag tag--pontual">Pontual</span><h4>Ação Diária</h4><p>1 promotora × 1 diária (6h) com uniforme padrão · panfletagem ou abordagem de público.</p></article>
+          <article class="plan"><span class="tag tag--pontual">Pontual</span><h4>Ação Dupla</h4><p>2 promotoras × 1 diária (ou 1 promotora × 2 diárias) com briefing personalizado para a ação.</p></article>
+          <article class="plan"><span class="tag tag--pontual">Pontual</span><h4>Ativação de Evento</h4><p>Até 4 promotoras por dia · briefing, uniforme e relatório fotográfico e de resultados.</p></article>
+        </div>
+        <p class="plan-group__note">Material de panfletagem e brindes fornecidos pelo cliente. Ideal para inaugurações, lançamentos e campanhas sazonais.</p>
+      </div>
+
+      <!-- Planos Mix -->
+      <div class="plan-group reveal">
+        <h3>Planos Mix · Assinatura mensal</h3>
+        <p class="plan-group__sub">Conteúdo completo todo mês: o plano acompanha o momento do seu negócio e evolui com ele.</p>
+        <div class="plan-row">
+          <article class="plan"><span class="tag tag--mensal">Recorrente · Mensal</span><h4>Presença</h4>
+            <ul><li>6 posts + 4 Reels</li><li>1 stories por mês</li><li>Copy profissional</li><li>Calendário mensal</li></ul>
+          </article>
+          <article class="plan plan--highlight"><span class="tag tag--best">Mais escolhido</span><span class="tag tag--mensal">Recorrente · Mensal</span><h4>Autoridade</h4>
+            <ul><li>8 posts + 8 Reels</li><li>4 stories por mês</li><li>Copy otimizada</li><li>Estratégia mensal</li><li>Relatório com métricas</li></ul>
+          </article>
+          <article class="plan"><span class="tag tag--mensal">Recorrente · Mensal</span><h4>Performance</h4>
+            <ul><li>14 posts + 14 Reels</li><li>8 stories por mês</li><li>Estratégia personalizada</li><li>Consultoria quinzenal</li><li>Relatório completo com ajustes</li></ul>
+          </article>
+        </div>
+        <p class="plan-group__note">Contrato claro, faturamento mensal e evolução de plano a qualquer momento, sem fidelidade escondida.</p>
+      </div>
+
+      <!-- Tráfego Pago add-on -->
+      <div class="addon reveal">
+        <div class="addon__info">
+          <span class="tag tag--mensal">Aceleração · Add-on para qualquer plano</span>
+          <h3>Tráfego Pago</h3>
+          <ul class="checklist checklist--light">
+            <li>Planejamento estratégico de campanhas</li>
+            <li>Gestão de anúncios Meta Ads (Instagram e Facebook)</li>
+            <li>Gestão de anúncios Google Ads e TikTok Ads</li>
+            <li>Segmentação e definição de públicos</li>
+            <li>Testes de criativos, monitoramento e otimização contínua</li>
+            <li>Relatórios mensais e reunião de performance</li>
+          </ul>
+        </div>
+        <div class="addon__how">
+          <h4>Como funciona o investimento</h4>
+          <p>A gestão profissional das campanhas é contratada junto à SZM Mídia, com escopo definido na proposta personalizada.</p>
+          <p>A verba de anúncios é sempre separada e investida pelo cliente diretamente nas plataformas, 100% transparente, definida em conjunto conforme objetivo, praça, público e duração.</p>
+          <p class="addon__note">Sem promessa de resultado garantido: trabalho orientado por testes, dados e otimização contínua.</p>
+        </div>
+      </div>
+
+      <!-- SZM 360 -->
+      <div class="full360 reveal">
+        <span class="tag tag--best">O mais completo</span>
+        <h3>SZM 360°</h3>
+        <p class="full360__sub">Toda a força da SZM Mídia em um único contrato, para quem quer dominar o mercado.</p>
+        <div class="full360__grid">
+          <div><h4>Conteúdo nível Performance</h4><p>16 posts + 16 Reels + 12 stories por mês, com estratégia personalizada.</p></div>
+          <div><h4>Presença física</h4><p>Diárias de promotora por mês para ativação ou ponto de venda.</p></div>
+          <div><h4>Consultoria contínua</h4><p>Reunião mensal de estratégia e plano trimestral sempre atualizado.</p></div>
+          <div><h4>Tráfego pago incluso</h4><p>Gestão Meta Ads e Google Ads (verba de anúncio separada e transparente).</p></div>
+        </div>
+        <p class="full360__note">Você não precisa contratar tudo. Precisa contratar aquilo que realmente fará seu projeto avançar: o 360° é montado com base no seu objetivo, momento, estrutura e prioridades. Escopo final fechado em contrato antes de começar.</p>
+        <a class="btn btn--solid" href="https://wa.me/557798084101?text=Ol%C3%A1!%20Quero%20montar%20meu%20plano%20com%20a%20SZM." target="_blank" rel="noopener">Montar meu plano com a SZM Mídia</a>
+      </div>
+
+      <p class="investment-note reveal">Investimento apresentado em proposta personalizada, de acordo com o escopo definido em reunião.</p>
+    </div>
+  </section>
+
+  <!-- ============ PORTFÓLIO / CLIENTES ============ -->
+  <section class="section section--tint" id="portfolio">
+    <div class="container">
+      <div class="section__head reveal">
+        <p class="eyebrow">Nossos clientes e parceiros</p>
+        <h2>Marcas que confiam em nosso trabalho</h2>
+        <p class="section__sub">Construímos projetos em parceria com empresas de diferentes segmentos, conectando estratégia, criatividade, presença digital e resultados comerciais.</p>
+      </div>
+      <div class="clients-grid">
+        <div class="client reveal"><div class="client__logo"><img src="img/atacadao.png" alt="Atacadão Ramalho" onerror="logoFallback(this,'AR')" /></div><h4>Atacadão Ramalho</h4><p>Móveis e eletrodomésticos</p></div>
+        <div class="client reveal"><div class="client__logo"><img src="img/lupo.png" alt="Lupo Franquia" onerror="logoFallback(this,'LP')" /></div><h4>Lupo Franquia</h4><p>Moda e vestuário</p></div>
+        <div class="client reveal"><div class="client__logo"><img src="img/case-humberto.png" alt="Humberto Filho" onerror="logoFallback(this,'HF')" /></div><h4>Humberto Filho</h4><p>Arquitetura e interiores</p></div>
+        <div class="client client--switch reveal" id="clientPequente">
+          <div class="client__logo client__logo--switch">
+            <img src="img/paquente.png" alt="Péquente Sports" onerror="logoFallback(this,'PQ')" />
+            <button type="button" class="client__nav" aria-label="Trocar logo do Pé Quente" onclick="pequenteSwitch()">&rsaquo;</button>
+          </div>
+          <h4 id="pequenteName">Péquente Sports</h4>
+          <p id="pequenteSeg">Moda esportiva e artigos fitness</p>
+          <span class="client__dots"><i class="is-active"></i><i></i></span>
+        </div>
+        <div class="client reveal"><div class="client__logo"><img src="img/torkar.png" alt="Torkar" onerror="logoFallback(this,'TK')" /></div><h4>Torkar</h4><p>Mecânica especializada</p></div>
+        <div class="client reveal"><div class="client__logo"><img src="img/pattisserie.png" alt="Pâtisserie" onerror="logoFallback(this,'PT')" /></div><h4>Pâtisserie</h4><p>Confeitaria artesanal</p></div>
+        <div class="client reveal"><div class="client__logo"><img src="img/lanamed.png" alt="LanaMed" onerror="logoFallback(this,'LM')" /></div><h4>LanaMed</h4><p>Indústria farmacêutica e saúde</p></div>
+        <div class="client reveal"><div class="client__logo"><img src="img/fantastic_drinks.png" alt="Fantastic Drinks" onerror="logoFallback(this,'FD')" /></div><h4>Fantastic Drinks</h4><p>Coquetelaria premium para eventos</p></div>
+        <div class="client reveal"><div class="client__logo"><img src="img/trs.png" alt="Time que Resolve" onerror="logoFallback(this,'TRS')" /></div><h4>Time que Resolve</h4><p>Consultoria e treinamento comercial</p></div>
+      </div>
+
+      <!-- Case em destaque -->
+      <article class="case reveal">
+        <div class="case__media">
+          <img src="img/mockuphmbrt.png" alt="Projeto de arquitetura de alto padrão, Humberto Filho" onerror="imgFallback(this,'card','HF')" />
+        </div>
+        <div class="case__body">
+          <p class="eyebrow eyebrow--light">Projeto em destaque</p>
+          <h3>Humberto Filho | Arquitetura</h3>
+          <p class="case__sub">Residências contemporâneas de alto padrão · Bahia</p>
+          <dl>
+            <dt>Desafio</dt>
+            <dd>Traduzir a autoridade técnica do arquiteto em uma presença digital à altura dos projetos de alto padrão.</dd>
+            <dt>Solução aplicada</dt>
+            <dd>Posicionamento desenvolvido, presença digital organizada e conteúdo estratégico: bastidores de obra, projetos e o arquiteto como rosto da marca.</dd>
+            <dt>Entregas</dt>
+            <dd>Direção de conteúdo, tráfego pago, Reels de obra e projeto, destaques organizados e comunicação visual fortalecida.</dd>
+          </dl>
+          <p class="case__handle">@humbertofilho.arch · perfil gerenciado pela SZM Mídia</p>
+        </div>
+      </article>
+
+      <div class="center reveal">
+        <a class="btn btn--ghost" href="https://instagram.com/humbertofilho.arch" target="_blank" rel="noopener">Ver mais no Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TIME ============ -->
+  <section class="section" id="time">
+    <div class="container">
+      <div class="section__head reveal">
+        <p class="eyebrow">Nosso time</p>
+        <h2>Estratégia, criatividade, conteúdo e performance</h2>
+      </div>
+      <div class="team-grid">
+        <article class="member reveal">
+          <div class="member__photo"><img src="img/regisousa.png" alt="Regi Souza" onerror="imgFallback(this,'avatar','RS')" /></div>
+          <h4>Regi Souza</h4>
+          <p class="member__role">Diretor Estratégico e de Gestão</p>
+          <p>À frente da SZM Mídia e da TRS, conduz a estratégia e a gestão de cada operação, transformando planejamento em resultado comercial concreto para as marcas atendidas.</p>
+        </article>
+        <article class="member reveal">
+          <div class="member__photo"><img src="img/otavio.png" alt="Otávio Souza" onerror="imgFallback(this,'avatar','OS')" /></div>
+          <h4>Otávio Souza</h4>
+          <p class="member__role">Diretor de Conteúdo e Operações Digitais</p>
+          <p>Lidera a estratégia e a operação digital da SZM Mídia, garantindo que cada conteúdo publicado tenha propósito, consistência e resultado por trás.</p>
+        </article>
+        <article class="member reveal">
+          <div class="member__photo"><img src="img/eduardo.png" alt="Eduardo Alves" onerror="imgFallback(this,'avatar','EA')" /></div>
+          <h4>Eduardo Alves</h4>
+          <p class="member__role">Design Gráfico e Estratégico</p>
+          <p>Cria identidades visuais que elevam a percepção de valor das marcas, design que posiciona antes mesmo do primeiro contato.</p>
+        </article>
+        <article class="member reveal">
+          <div class="member__photo"><img src="img/felipe.png" alt="Fhelype Carvalho" onerror="imgFallback(this,'avatar','FC')" /></div>
+          <h4>Fhelype Carvalho</h4>
+          <p class="member__role">Head de Performance e Tráfego Pago</p>
+          <p>Converte investimento em mídia em resultado mensurável: campanhas orientadas a dados, focadas em vendas e crescimento real.</p>
+        </article>
+        <article class="member reveal">
+          <div class="member__photo"><img src="img/tales.png" alt="Tales Marques" onerror="imgFallback(this,'avatar','TM')" /></div>
+          <h4>Tales Marques</h4>
+          <p class="member__role">Social Media</p>
+          <p>Capta e produz vídeos que traduzem a essência de cada marca em imagens de alto impacto, presença que se vê e se sente.</p>
+        </article>
+        <article class="member reveal">
+          <div class="member__photo"><img src="img/niele.png" alt="Niele Louise" onerror="imgFallback(this,'avatar','NL')" /></div>
+          <h4>Niele Louise</h4>
+          <p class="member__role">Relacionamento e Novos Negócios</p>
+          <p>Conecta marcas à SZM Mídia com atendimento próximo e consultivo, entendendo cada negócio antes de propor o caminho certo.</p>
+        </article>
+      </div>
+      <p class="team-note reveal">Cada projeto é conduzido por profissionais com responsabilidades específicas e um único objetivo: uma presença de marca mais forte e preparada para gerar oportunidades.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEPOIMENTOS ============ -->
+  <section class="section section--tint" id="depoimentos">
+    <div class="container">
+      <div class="section__head reveal">
+        <p class="eyebrow">Depoimentos</p>
+        <h2>O que nossos clientes dizem</h2>
+      </div>
+      <div class="quotes">
+        <blockquote class="reveal">
+          <p>"A SZM Mídia transformou completamente a presença digital da nossa empresa. Com o Método PIV®, conseguimos posicionar nossa marca, atrair mais clientes e aumentar significativamente nossos resultados."</p>
+          <footer><span class="avatar">N</span>Naisson Santana · Atacadão Ramalho</footer>
+        </blockquote>
+        <blockquote class="reveal">
+          <p>"O atendimento é excelente e o planejamento faz toda a diferença. A equipe entende o negócio, cria estratégias eficientes e entrega um trabalho profissional do início ao fim."</p>
+          <footer><span class="avatar">D</span>Danilo · Grupo Pé Quente</footer>
+        </blockquote>
+        <blockquote class="reveal">
+          <p>"Depois que começamos a trabalhar com a SZM Mídia, nossa empresa ganhou mais visibilidade e credibilidade. O Método PIV® realmente gera impacto e traz resultados."</p>
+          <footer><span class="avatar">E</span>Efraim · Real Espetinho</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section" id="faq">
+    <div class="container container--narrow">
+      <div class="section__head reveal">
+        <p class="eyebrow">Ainda tem dúvida?</p>
+        <h2>Aquilo que todo dono de negócio pergunta antes de começar</h2>
+      </div>
+      <div class="faq reveal">
+        <details><summary>Marketing digital funciona para negócio pequeno?</summary><p>Funciona, e muito. A maioria dos nossos clientes é de negócio local (restaurante, farmácia, loja, salão, prestador de serviço). Com a estratégia certa, dá pra aparecer justamente para quem está na sua cidade e tem chance real de comprar de você.</p></details>
+        <details><summary>Em quanto tempo eu vejo resultado?</summary><p>Depende do serviço. Anúncio pago costuma trazer contato já nas primeiras semanas. Construir marca e conteúdo forte leva um pouco mais: geralmente entre 2 e 3 meses você já sente diferença no movimento e no reconhecimento.</p></details>
+        <details><summary>Preciso aparecer nos vídeos?</summary><p>Não é obrigatório. Se você gosta e se sente à vontade, ajuda bastante. Se não, a gente adapta: usa produto, ambiente, equipe, bastidor e outras ideias que funcionam igual. O importante é o conteúdo, não o rosto.</p></details>
+        <details><summary>Tem fidelidade ou contrato longo?</summary><p>A gente trabalha com contratos mensais e sem multa de saída. A ideia é que você fique com a gente porque está gostando do resultado, não porque assinou papel.</p></details>
+        <details><summary>Como funciona o Método PIV®?</summary><p>É o nosso passo a passo em três etapas: Posicionar (deixar sua marca clara), Impactar (fazer as pessoas certas verem você) e Vender (transformar essa atenção em cliente de verdade).</p></details>
+        <details><summary>Vocês atendem qualquer tipo de negócio?</summary><p>Sim. Restaurante, farmácia, loja, estética, clínica, prestador de serviço, comércio local. Cada negócio tem seu momento e a gente monta o plano na medida certa.</p></details>
+        <details><summary>Como faço para começar?</summary><p>É simples: preencha o formulário de contato ou chame a gente no WhatsApp (77) 9808-4101. A conversa inicial é gratuita e sem compromisso, você já sai entendendo por onde começar.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MANIFESTO ============ -->
+  <section class="manifesto reveal">
+    <div class="container container--narrow">
+      <h2>Sua marca pode continuar apenas sendo vista ou pode começar a ser <em>lembrada, desejada e escolhida</em>.</h2>
+      <p>Não criamos apenas conteúdo. Construímos posicionamento para gerar impacto e vendas.</p>
+      <p class="manifesto__sig">Posicionar · Impactar · Vender</p>
+      <a class="btn btn--light" href="#contato">Solicitar Diagnóstico Gratuito</a>
+    </div>
+  </section>
+
+  <!-- ============ CONTATO ============ -->
+  <section class="section" id="contato">
+    <div class="container split split--contact">
+      <div class="split__text reveal">
+        <p class="eyebrow">Contato</p>
+        <h2>Vamos conversar?</h2>
+        <p>O diagnóstico é gratuito, rápido e sem compromisso. Você sai da conversa entendendo o que precisa melhorar, mesmo que não feche com a gente.</p>
+        <ul class="checklist">
+          <li>Diagnóstico gratuito da sua presença digital</li>
+          <li>Recomendações baseadas no Método PIV®</li>
+          <li>Resposta em até 24 horas úteis</li>
+        </ul>
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="https://docs.google.com/forms/d/e/1FAIpQLSfborB7FV7XE1MSwieW6iEAi1nGLlSBX80MSNOWp9ZpschI-g/viewform?usp=header" target="_blank" rel="noopener">Preencher formulário</a>
+          <a class="btn btn--ghost" href="https://wa.me/557798084101?text=Ol%C3%A1!%20Quero%20solicitar%20um%20diagn%C3%B3stico%20gratuito." target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </div>
+      </div>
+      <div class="contact-cards reveal">
+        <a href="https://wa.me/557798084101" target="_blank" rel="noopener"><strong>WhatsApp</strong><span>+55 77 9808-4101</span></a>
+        <a href="mailto:szmmidia@gmail.com"><strong>E-mail</strong><span>szmmidia@gmail.com</span></a>
+        <a href="https://instagram.com/szmediar_" target="_blank" rel="noopener"><strong>Instagram</strong><span>@szmediar_</span></a>
+        <a href="https://www.tiktok.com/@szm.midia" target="_blank" rel="noopener"><strong>TikTok</strong><span>@szm.midia</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div>
+        <img src="img/szm_branca.png" alt="SZM Mídia" class="nav__logo-img nav__logo-img--footer"
+             data-remote="https://szmmidia-com-br.lovable.app/__l5e/assets-v1/bdfcc08a-516c-4b10-b05a-dc14441704e6/szm-logo.png"
+             onerror="imgFallback(this,'text','SZMMÍDIA')" />
+        <p>Método PIV® · Posicionar · Impactar · Vender</p>
+        <p>Transformamos empresas em marcas fortes através de estratégias inteligentes de marketing digital.</p>
+      </div>
+      <div>
+        <h4>Menu</h4>
+        <a href="#inicio">Início</a><a href="#quem-somos">Quem Somos</a><a href="#metodo-piv">Método PIV®</a><a href="#servicos">Serviços</a><a href="#planos">Planos</a><a href="#portfolio">Portfólio</a><a href="#time">Time</a><a href="#contato">Contato</a>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <a href="https://wa.me/557798084101" target="_blank" rel="noopener">WhatsApp +55 77 9808-4101</a>
+        <a href="mailto:szmmidia@gmail.com">szmmidia@gmail.com</a>
+        <a href="https://instagram.com/szmediar_" target="_blank" rel="noopener">Instagram @szmediar_</a>
+        <a href="https://www.tiktok.com/@szm.midia" target="_blank" rel="noopener">TikTok @szm.midia</a>
+      </div>
+    </div>
+    <p class="footer__copy">© 2026 SZM Mídia. Todos os direitos reservados. · Vitória da Conquista, BA</p>
+  </footer>
+
+  <a class="whats-float" href="https://wa.me/557798084101?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20SZM%20M%C3%ADdia%20e%20quero%20saber%20mais." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">WhatsApp</a>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

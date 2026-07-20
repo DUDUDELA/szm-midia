@@ -4,9 +4,11 @@
    ============================================================ */
 
 :root {
-  --vinho: #6E0F1E;
-  --vinho-claro: #9E1B32;
-  --vinho-profundo: #3D0811;
+  --vinho: #560c17;
+  --vinho-claro: #85162b;
+  --vinho-profundo: #2e0008;
+  --rose: #E9A9B4;              /* acento claro sobre fundos escuros */
+  --vinho-glow: 133, 22, 43;   /* RGB do vinho-claro, para brilhos radiais */
   --preto: #171214;
   --branco: #FFFFFF;
   --off: #F7F3F2;
@@ -65,7 +67,7 @@ a { color: inherit; }
   color: var(--vinho);
   margin-bottom: 14px;
 }
-.eyebrow--light { color: #E9A9B4; }
+.eyebrow--light { color: var(--rose); }
 
 /* ---------- Botões ---------- */
 .btn {
@@ -134,7 +136,7 @@ a { color: inherit; }
 /* ---------- Hero ---------- */
 .hero {
   background:
-    radial-gradient(1100px 500px at 85% -10%, rgba(158,27,50,0.16), transparent 60%),
+    radial-gradient(1100px 500px at 85% -10%, rgba(var(--vinho-glow), 0.16), transparent 60%),
     var(--branco);
   padding: 100px 0 90px;
 }
@@ -225,7 +227,7 @@ a { color: inherit; }
   font-weight: 800;
 }
 .checklist--light li { color: var(--branco); font-weight: 500; }
-.checklist--light li::before { color: #E9A9B4; }
+.checklist--light li::before { color: var(--rose); }
 
 /* ---------- Método PIV ---------- */
 .piv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
@@ -238,7 +240,7 @@ a { color: inherit; }
 .piv-card__letter {
   font-family: "Anton", sans-serif;
   font-size: 3.4rem;
-  color: #E9A9B4;
+  color: var(--rose);
   display: block;
   line-height: 1;
   margin-bottom: 16px;
@@ -382,7 +384,7 @@ a { color: inherit; }
   border-radius: var(--radius);
   padding: 26px 24px;
 }
-.addon__how h4 { margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.85rem; color: #E9A9B4; }
+.addon__how h4 { margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.85rem; color: var(--rose); }
 .addon__how p { color: rgba(255,255,255,0.82); font-size: 0.95rem; margin-bottom: 12px; }
 .addon__note { font-style: italic; font-size: 0.87rem !important; color: rgba(255,255,255,0.6) !important; }
 
@@ -434,6 +436,36 @@ a { color: inherit; }
 .client h4 { font-size: 1rem; }
 .client p { color: var(--cinza); font-size: 0.87rem; }
 
+/* card com troca de logo (Pé Quente) */
+.client--switch { position: relative; }
+.client__logo--switch { position: relative; }
+.client__nav {
+  position: absolute;
+  top: 50%; right: 0;
+  transform: translateY(-50%);
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--borda);
+  background: var(--branco);
+  color: var(--vinho);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  z-index: 2;
+}
+.client__nav:hover { background: var(--vinho); color: #fff; transform: translateY(-50%) scale(1.08); }
+.client__dots { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
+.client__dots i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--borda);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.client__dots i.is-active { background: var(--vinho); transform: scale(1.25); }
+
 .case {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -452,14 +484,20 @@ a { color: inherit; }
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #E9A9B4;
+  color: var(--rose);
   margin-top: 16px;
 }
 .case dl dd { color: rgba(255,255,255,0.85); font-size: 0.97rem; margin-top: 4px; }
 .case__handle { margin-top: 24px; font-size: 0.87rem; color: rgba(255,255,255,0.6); }
 
 /* ---------- Time ---------- */
-.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
 .member { text-align: center; }
 .member__photo {
   width: 150px; height: 150px;
@@ -481,7 +519,6 @@ a { color: inherit; }
 }
 .member p:last-child { color: var(--cinza); font-size: 0.92rem; }
 .team-note { text-align: center; margin-top: 44px; color: var(--cinza); max-width: 720px; margin-left: auto; margin-right: auto; }
-
 /* ---------- Depoimentos ---------- */
 .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .quotes blockquote {
@@ -539,7 +576,7 @@ a { color: inherit; }
 /* ---------- Manifesto ---------- */
 .manifesto {
   background:
-    radial-gradient(900px 400px at 15% 0%, rgba(158,27,50,0.35), transparent 60%),
+    radial-gradient(900px 400px at 15% 0%, rgba(var(--vinho-glow), 0.35), transparent 60%),
     var(--vinho-profundo);
   color: var(--branco);
   text-align: center;
@@ -553,14 +590,14 @@ a { color: inherit; }
   letter-spacing: -0.01em;
   margin-bottom: 20px;
 }
-.manifesto h2 em { color: #E9A9B4; font-style: normal; }
+.manifesto h2 em { color: var(--rose); font-style: normal; }
 .manifesto p { color: rgba(255,255,255,0.75); margin-bottom: 8px; }
 .manifesto__sig {
   font-family: "Anton", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.28em;
   font-size: 0.85rem;
-  color: #E9A9B4;
+  color: var(--rose);
   margin: 26px 0 34px !important;
 }
 
